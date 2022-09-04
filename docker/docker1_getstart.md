@@ -1,0 +1,142 @@
+# Docker教程
+
+DockerDocs: https://docs.docker.com/
+
+DockerHub: https://hub.docker.com/
+
+## Docker安装
+
+### Ubuntu下在线安装
+
+推荐安装方式
+
+https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
+
+docker-ce:社区版本
+
+docker-ee:企业版本
+
+### Ubuntu下离线安装
+
+参考：
+
+https://blog.csdn.net/fy512/article/details/123257474
+
+https://blog.csdn.net/qq_44858888/article/details/124084408
+
+
+
+下载安装包https://download.docker.com/linux/static/stable/x86_64/，例如选择**docker-18.06.0-ce.tgz**进行下载。
+
+
+
+### 安装路径
+
+docker的安装路径为：`/var/lib/docker`，一般镜像下载了之后都会在这个位置。
+
+### 启动docker
+
+#### WSL2启动
+
+```shell
+$ sudo service docker start
+```
+
+#### 一般Ubuntu下启动
+
+```shell
+$systemctl start docker
+$docker version
+```
+
+>Note:
+>
+>启动后出现“Got permission denied...."问题，解决方法是将
+>
+>当前用户添加到docker用户组。
+>
+>```shell
+>$ sudo groupadd docker
+>$ sudo gpasswd -a $USER docker
+>$ newgrp docker
+>```
+>
+>然后重新启动docker: `systemctl restart docker`
+
+### Hello World
+
+```shell
+$docker run hello-world
+$docker images
+```
+
+
+
+## docker使用
+
+### docker命令
+
+```python
+systemctl start docker      #启动docker
+systemctl restart docker    #重启docker
+systemctl daemon-reload     #重载服务配置文件
+docker version   #查看版本
+docker images    #查看当前镜像
+```
+
+
+
+### Docker工作原理
+
+Docker是一个Server-Client结构的系统，Docker的守护进程运行在主机上，通过socket从客户端访问。DockerServer接收到DockerClient的指令，就会执行这个命令。
+
+## 容器
+
+```shell
+# 查看正在运行的容器
+$ docker ps
+# 查看所有容器
+$ docker ps -a
+```
+
+
+
+## 常用镜像
+
+```shell
+# cuda镜像（x86）
+docker.io/nvidia/cuda:10.2-cudnn8-devel-ubuntu18.04
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
