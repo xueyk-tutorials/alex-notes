@@ -26,6 +26,8 @@ sudo apt update
 sudo apt upgrade
 ```
 
+### 镜像源18.04
+
 #### 阿里云镜像源
 
 ```
@@ -71,7 +73,11 @@ deb http://mirrors.ustc.edu.cn/ubuntu/ xenial main restricted universe multivers
  deb-src http://mirrors.ustc.edu.cn/ubuntu/ xenial-backports main restricted universe multiverse
 ```
 
+### 镜像源20.04
 
+#### 清华源
+
+https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/
 
 
 
