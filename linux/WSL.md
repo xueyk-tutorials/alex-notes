@@ -1,4 +1,16 @@
-# WSL2
+# WSL教程
+
+## 安装
+
+### 安装WSL2
+
+请参考官网教程：https://docs.microsoft.com/zh-cn/windows/wsl/install-manual
+
+### 安装Windows终端
+
+Windows终端用于管理所有的终端如cmd、powerShell、WSL，交互性较好。
+
+请参考官网教程：https://docs.microsoft.com/zh-CN/windows/terminal/install
 
 ## WSL开机启动
 
@@ -10,12 +22,13 @@ sudo cat > /etc/init.wsl << EOF
 EOF
 
 sudo chmod +x /etc/init.wsl
-
 ```
 
-## WSL2IP配置相关
+## WSL网络
 
-### WSL2固定IP
+### WSL2 IP配置相关
+
+#### WSL2固定IP
 
 每次启动WSL前，我们可以通过windows给WSL设置分配IP
 
@@ -47,9 +60,9 @@ $ netsh interface ip add address "vEthernet (WSL)" 192.168.50.12 255.255.255.0
 
 由于每次手动设置很麻烦，可以将这两个设置命令写在一个.bat文件中，并且开机自启动！
 
-### 开机启动设置
+开机启动设置
 
-#### 方法一：编写启动脚本
+##### 方法一：编写启动脚本
 
 - 打开启动文件夹
 
@@ -78,7 +91,7 @@ netsh interface ip add address "vEthernet (WSL)" 192.168.50.88 255.255.255.0
 >
 > $ netsh interface ip add address "vEthernet (WSL)" 192.168.50.88 255.255.255.0
 
-#### 方法二：通过vbs启动bat脚本
+##### 方法二：通过vbs启动bat脚本
 
 1、将启动脚本wsl2_ip_config.bat放到路径`E:\Develop_drone\2Simulation\`下。
 
@@ -111,7 +124,7 @@ netsh winsock reset
 
 直接上地址:https://github.com/yhl452493373/WSL2-Auto-Port-Forward
 
-## netsh使用
+### netsh使用
 
 - 新增端口转发
 
@@ -137,13 +150,64 @@ netsh interface portproxy delete v4tov4 listenaddress=192.168.88.110 listenport=
 >
 > **使用netsh interface portproxy记得配置Windows和出口路由器防火墙规则**
 
+## WSL桌面
 
+### 使用XLaunch+xfce4
 
-## WSL2使用xrdp实现图形桌面
+#### Windows下安装和配置XLaunch
+
+- 下载并安装[VcXsrv](https://sourceforge.net/projects/vcxsrv/)
+
+安装完成后，在桌面生成XLaunch快捷方式
+
+- 运行XLaunch
+
+双击XLaunch快捷方式启动，选择默认配置即可，在设置页面中输入**-ac**，如下图所示：
+
+![image-20220907154253454](imgs\image-20220907154253454.png)
+
+启动完成后，会弹出一个黑框，这是因为桌面服务还没有启动，需要在Ubuntu中进行xfce4服务启动。
+
+#### Ubuntu下安装和配置xfce4
+
+- 安装
+
+输入如下命令安装，选择默认配置即可。
+
+```shell
+$ sudo apt update
+$ sudo apt install xfce4
+```
+
+- 配置环境变量
+
+  Windows下打开PowerShell，输入`ipconfig`，获取WSL对应的IP，如下图所示：
+
+![image-20220907154751081](imgs\image-20220907154751081.png)
+
+然后在Ubuntu下，在`~/.bashrc`文件末尾添加：
+
+```shell
+export DISPLAY=<WSL的IP>:0     #例如我的配置为 export DISPLAY=172.24.48.1:0
+```
+
+- 启动xfce4
+
+```SHELL
+$ startxfce4
+```
+
+![image-20220907155852780](H:\alex-github\alex-notes\linux\imgs\image-20220907155852780.png)
+
+启动后，Windows界面中的XLaunch黑框，就会显示Ubuntu界面。
+
+![image-20220907155936324](H:\alex-github\alex-notes\linux\imgs\image-20220907155936324.png)
+
+### 使用xrdp实现远程桌面
 
 使用xrdp+xfce4进行远程桌面访问
 
-### 安装包
+#### 安装包
 
 ```shell
 $ sudo apt update
@@ -160,7 +224,7 @@ $ sudo apt install -y xfce4 xrdp
 > $ sudo dpkg-reconfigure lightdm
 > ```
 
-### 修改xrdp默认端口
+#### 修改xrdp默认端口
 
 由于`xrdp`安装好后默认配置使用的是和Windows远程桌面相同的`3389` 端口,为了防止和Windows系统远程桌面冲突,建议修改成其他的端口
 
@@ -170,7 +234,7 @@ $ sudo vim /etc/xrdp/xrdp.ini
 port=3390
 ```
 
-### 为当前用户指定登录session类型
+#### 为当前用户指定登录session类型
 
 **注意这一步很重要,如果不设置的话会导致后面远程桌面连接上闪退**
 
@@ -181,7 +245,7 @@ $ vim ~/.xsession
 xfce4-session
 ```
 
-### 启动xrdp
+#### 启动xrdp
 
 由于WSL2里面不能用`systemd`,所以需要手动启动
 
@@ -189,7 +253,7 @@ xfce4-session
 $ sudo /etc/init.d/xrdp start
 ```
 
-### 远程访问
+#### 远程访问
 
 在Windows系统中运行`mstsc`命令打开远程桌面连接,地址输入`localhost:3390`
 
