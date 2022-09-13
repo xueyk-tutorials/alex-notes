@@ -296,7 +296,9 @@ static routers=192.168.1.1	           # 路由器IP
 static domain_name_servers=192.168.1.1 #DNS,也是路由IP
 ```
 
-### WiFi操作
+**设置完后重启**
+
+### 无线WiFi
 
 ```
 sudo ifdown wlan0  #关闭WiFi
@@ -304,7 +306,7 @@ sudo ifup wlan0     #打开WiFi
 ifconfig wlan0 #查看是否连接网络（有inet addr地址则说明连接上）
 ```
 
-### 添加WiFi网络
+#### 添加WiFi网络
 
 如果希望开机启动就自动连接一个新的WiFi，则编辑`/etc/wpa_supplicant/wpa_supplicant.conf`，在文件底部添加：
 
@@ -315,9 +317,7 @@ network={
 }
 ```
 
-
-
-### 彻底关闭WiFi
+#### 彻底关闭WiFi
 
 在文件`/boot/config.txt`后追加：
 
@@ -325,11 +325,9 @@ network={
 dtoverlay=pi3-disable-wifi
 ```
 
+#### 树莓派开启WiFi热点
 
-
-## 树莓派WiFi热点
-
-### 安装create_ap
+##### 安装create_ap
 
 基于GitHub开源项目：https://github.com/oblique/create_ap
 
@@ -357,7 +355,7 @@ dtoverlay=pi3-disable-wifi
 
 6. 在重启前关闭连接的WiFi，重启后即可出现热点。
 
-### 问题
+##### 问题
 
 1. 有时候hostapd安装时出现版本冲突问题，使用sudo aptitude install hostapd，根据提示进行版本调整即可。
 2. 测试时确保树莓派没有连接任何WiFi！不然无法创建热点
@@ -599,6 +597,24 @@ docker info
 ### portainer
 
 图形化管理界面
+
+### 各类镜像
+
+#### ros2
+
+根据安装的系统版本，需要拉取对应的镜像。
+
+- raspbain OS-64bit
+
+  镜像仓库地址为：https://hub.docker.com/r/arm64v8/ros/tags?page=2，有各个不同版本的ROS。
+
+  选择foxy版本，拉取仓库的命令如下：
+
+```shell
+$ docker pull arm64v8/ros:foxy-ros-base
+```
+
+
 
 ## 各类开发环境配置
 
