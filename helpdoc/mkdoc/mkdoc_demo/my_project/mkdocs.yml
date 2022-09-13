@@ -1,0 +1,7 @@
+site_name: HelloMkDoc
+site_url: https://example.com/
+nav:
+    - Home: index.md
+    - About: about.md
+    - Hello: helloworld.md
+theme: readthedocs
