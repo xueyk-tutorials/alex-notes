@@ -16,6 +16,14 @@
 
   安装：`sudo apt-get install net-tools`
 
+## 进程管理
+
+### 杀死占用端口
+
+```shell
+$ kill 9508
+```
+
 
 
 ## 网络常用端口号
