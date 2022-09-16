@@ -16,6 +16,14 @@
 
   安装：`sudo apt-get install net-tools`
 
+## 进程管理
+
+### 杀死占用端口
+
+```shell
+$ kill 9508
+```
+
 
 
 ## 网络常用端口号
@@ -48,7 +56,9 @@
 
 
 
-## 账号
+## 账号与权限
+
+### 账号
 
 - 切换账号：
 
@@ -70,6 +80,13 @@ $ sudo  vim  /etc/sudoers
 你的账户名  ALL=(ALL:ALL) NOPASSWD: ALL
 # 特定操作不需要密码
 你的账户名  ALL=(ALL:ALL) NOPASSWD: /bin/sh /usr/local/sbin/start_docker.sh
+```
+### 权限
+
+改变boolpi文件夹内所有文件的权限为：所有人都可以rwx
+
+```
+sudo chmod -R a=rwx boolpi
 ```
 
 

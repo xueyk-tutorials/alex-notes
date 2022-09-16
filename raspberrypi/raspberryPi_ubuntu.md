@@ -214,6 +214,68 @@ sudo netplan apply
 $ sudo systemctl enable ssh
 ```
 
+
+
+
+
+### 串口配置
+
+- 查看串口驱动
+
+```shell
+$ ls /dev/ttyAMA*
+/dev/ttyAMA0
+```
+
+- 查看所有可用串口
+
+```shell
+$ sudo apt install libraspberrypi-bin
+$ dtoverlay -a | grep uart
+  midi-uart0
+  midi-uart1
+  miniuart-bt
+  uart0
+  uart1
+  uart2
+  uart3
+  uart4
+  uart5
+```
+
+
+
+- 使能所有串口
+
+运行命令`sudo vim /boot/firmware/usercfg.txt`，文件结尾添加如下内容：
+
+```shell
+dtoverlay=uart2
+dtoverlay=uart3
+dtoverlay=uart4
+dtoverlay=uart5
+```
+
+重启后，可以再次查看当前可使用的串口驱动
+
+```shell
+$ ls /dev/ttyAMA*
+/dev/ttyAMA0  /dev/ttyAMA1  /dev/ttyAMA2  /dev/ttyAMA3  /dev/ttyAMA4
+```
+
+- 串口引脚对照
+
+```shell
+UART0： GPIO14 = TXD0 -> ttyAMA0     GPIO15 = RXD0 -> ttyAMA0
+UART1： ttyS0
+UART2： GPIO0  = TXD2 -> ttyAMA1     GPIO1  = RXD2 -> ttyAMA1
+UART3： GPIO4  = TXD3 -> ttyAMA2     GPIO5  = RXD3 -> ttyAMA2
+UART4： GPIO8  = TXD4 -> ttyAMA3     GPIO9  = RXD4 -> ttyAMA3
+UART5： GPIO12 = TXD5 -> ttyAMA4     GPIO13 = RXD5 -> ttyAMA4
+```
+
+![](imgs/40pins-2.png)
+
 ## 命令总结
 
 ```

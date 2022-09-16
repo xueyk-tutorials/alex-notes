@@ -41,3 +41,41 @@ ubuntu@2a7104f82ea5:~$ ls /dev/tty*
 /dev/tty  /dev/ttyUSB0
 ```
 
+
+
+## 配置启动的容器
+
+### 查看docker主目录
+
+```shell
+$ docker info | grep Root
+WARNING: No memory limit support
+WARNING: No swap limit support
+ Docker Root Dir: /var/lib/docker
+```
+
+### 容器配置文件
+
+通过`docker ps`命令获取容器id
+
+docker启动的容器都放置在目录`/var/lib/docker/container`下，故所有配置文件都在以容器id命名的文件夹。可以以管理员账户进行配置。
+
+```shell
+$ sudo su
+# ls /var/lib/docker/container/<容器ID>
+96969da5c154ca0c112d9bd24b7dc231372d9d0dd8f62dcea83f3d545554facc-json.log  hosts
+checkpoints                                                                mounts
+config.v2.json                                                             resolv.conf
+hostconfig.json                                                            resolv.conf.hash
+hostname
+```
+
+
+
+### 启动docker和容器
+
+```shell
+$ systemctl start docker
+$ docker start 容器名
+```
+
