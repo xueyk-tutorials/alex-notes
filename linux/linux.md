@@ -56,7 +56,23 @@
   $ su - alex     #切换至alex账号
   ```
 
-  
+
+### 设置用户权限
+
+#### sudo不需要密码
+
+有时候设置开机启动脚本时，需要sudo运行某个脚本，为了避免输入密码，可以给用户添加权限。
+
+```shell
+$ sudo  vim  /etc/sudoers
+### 添加权限设置
+# 使用户操作都不需要密码
+你的账户名  ALL=(ALL:ALL) NOPASSWD: ALL
+# 特定操作不需要密码
+你的账户名  ALL=(ALL:ALL) NOPASSWD: /bin/sh /usr/local/sbin/start_docker.sh
+```
+
+
 
 ## 时间日期
 
