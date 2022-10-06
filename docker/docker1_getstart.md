@@ -74,8 +74,8 @@ $ sudo service docker start
 #### 一般Ubuntu下启动
 
 ```shell
-$systemctl start docker
-$docker version
+$ systemctl start docker
+$ docker version
 ```
 
 >Note:
