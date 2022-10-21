@@ -142,6 +142,12 @@ $ git push origin <tagName>
 $ git push origin v0.1
 ```
 
+### 检出标签
+
+```shell
+$ git checkout tags/v1.1.0
+```
+
 
 
 ### 删除
