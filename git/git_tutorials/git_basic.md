@@ -227,6 +227,34 @@ git clone龟速已然成为常态，甚至使用科学上网的办法也无法�
 
 ​        对于子模块，可以先不要在git clone的时候加上--recursive，等主体部分下载完之后，该文件夹中有个隐藏文件称为：.gitmodules，把子项目中的url地址同样加上.cnpmjs.org后缀，然后利用`git submodule sync`更新子项目对应的url，最后再`git submodule update --init --recursive`，即可正常网速clone完所有子项目。
 
+## 换行符转换
+
+Windows下换行为CRLF，而Linux下换行为LF。为了避免同个仓库在不同系统性协同开发遇到换行符不一致被频繁更改的问题，可以通过设置`core.autocrlf`参数来解决。
+
+
+
+### 统一为Linux标准
+
+以Linux下开发为主，本地和远程仓库的换行都保持以LF结尾。
+
+- Linux下配置
+
+Git 在提交时把CRLF转换成LF，签出时不转换
+
+```shell
+$ git config --global core.autocrlf input 
+```
+
+- Windows下配置
+
+Git可以在你提交时自动地把行结束符CRLF转换成LF，而在签出代码时把LF转换成CRLF
+
+```shell
+$ git config --global core.autocrlf true 
+```
+
+
+
 ## git机制
 
 ### 教程参考
