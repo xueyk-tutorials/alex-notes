@@ -217,15 +217,33 @@ $ git submodule update --init --recursive
 
 ## GitHub加速
 
-git clone龟速已然成为常态，甚至使用科学上网的办法也无法有效解决。
+### 码云
 
-看过很多种方法，例如，改hosts，换镜像等，这些对于我来说并不好使，以下介绍的是的的确确游有用的办法。
+将github里的仓库拉到码云中去，然后在码云下载，速度就很快。对于一般的项目而言，这样就足够了，但是对于有很多子模块的项目而言，由于子模块链接的地址皆指向github，因此，对于git submodule update --init --recursive而言仍是龟速，因此，接下来就是方法2
 
-1. 使用码云，将github里的仓库拉到码云中去，然后在码云下载，速度就很快。对于一般的项目而言，这样就足够了，但是对于有很多子模块的项目而言，由于子模块链接的地址皆指向github，因此，对于git submodule update --init --recursive而言仍是龟速，因此，接下来就是方法2
+### 国内镜像
 
-2. 在git clone的地址，例如https://github.com/pytorch/pytorch，改为https://github.com.cnpmjs.org/pytorch/pytorch，也即加上后缀.cnpmjs.org，然后就可以愉快的下载了(亲测有效)。
+通过修改github仓库的地址，使用国内镜像下载。
 
-​        对于子模块，可以先不要在git clone的时候加上--recursive，等主体部分下载完之后，该文件夹中有个隐藏文件称为：.gitmodules，把子项目中的url地址同样加上.cnpmjs.org后缀，然后利用`git submodule sync`更新子项目对应的url，最后再`git submodule update --init --recursive`，即可正常网速clone完所有子项目。
+- cnpmjs.org
+
+  修改仓库地址，增加cnpmjs.org后缀，例如https://github.com/pytorch/pytorch，改为https://github.com.cnpmjs.org/pytorch/pytorch
+
+- https://github.91chi.fun/
+
+  修改仓库地址，增加https://github.91chi.fun/前缀，例如https://github.com/pytorch/pytorch，改为https://github.91chi.fun/https://github.com/pytorch/pytorch
+
+### 更新仓库子模块
+
+对于子模块，可以先不要在git clone的时候加上--recursive，等主体部分下载完之后，该文件夹中有个隐藏文件称为：.gitmodules，把子项目中的url地址同样加上.cnpmjs.org后缀，然后利用`git submodule sync`更新子项目对应的url，最后再`git submodule update --init --recursive`，即可正常网速clone完所有子项目。
+
+另外最简单的方式是通过`git config url`进行全局地址更换，就不需要手动更改.gitmodules文件了。
+
+```shell
+git config --global url."https://github.91chi.fun/https://github.com/".insteadOf https://github.com/
+```
+
+
 
 ## 换行符转换
 
