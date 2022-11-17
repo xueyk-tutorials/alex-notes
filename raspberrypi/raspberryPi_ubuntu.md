@@ -200,6 +200,29 @@ sudo netplan apply
 **2. Ubuntu18.04-Server版本配置有线和无线**
 
 ```shell
+network:
+    ethernets:
+        eth0:
+            addresses: [192.168.1.201/24]
+            dhcp4: false
+            gateway4: 192.168.1.1
+            nameservers:
+                addresses: [192.168.1.1]
+                addresses: [8.8.8.8, 114.114.114.114]
+    wifis:
+        wlan0:
+            dhcp4: false
+            addresses: [192.168.43.101/24]
+            gateway4: 192.168.43.1
+            nameservers:
+                addresses:
+                - 8.8.8.8
+                - 8.8.4.4
+                search: []
+            access-points:
+                "alex":
+                    password: "alex0610"
+    version: 2
 ```
 
 
