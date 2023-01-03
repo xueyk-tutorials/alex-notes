@@ -138,3 +138,20 @@ sudo ntpdate -d 电脑A的ip地址    //和电脑A进行时间同步
 
 
 
+## ssh
+
+### 开启ssh服务
+
+```shell
+$ sudo apt-get install openssh-server
+```
+
+查看是否启动，确保sshd进程存在就说明启动了。
+
+```shell
+$ sudo ps -e |grep ssh
+   1435 ?        00:00:00 ssh-agent
+ 129810 ?        00:00:00 ssh-agent
+ 132645 ?        00:00:00 sshd
+```
+
