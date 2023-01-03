@@ -247,7 +247,25 @@ git config --global url."https://github.91chi.fun/https://github.com/".insteadOf
 
 ## 换行符转换
 
-Windows下换行为CRLF，而Linux下换行为LF。为了避免同个仓库在不同系统性协同开发遇到换行符不一致被频繁更改的问题，可以通过设置`core.autocrlf`参数来解决。
+Windows下换行为CRLF，而Linux下换行为LF。为了避免同个仓库在不同系统性协同开发遇到换行符不一致被频繁更改的问题，可以通过设置`core.autocrlf`参数来解决。该参数可设置为false、input、true三种。
+
+- 不转换
+
+```shell
+$ git config --global core.autocrlf false
+```
+
+- Git 在提交时把CRLF转换成LF，拉取和签出时不转换
+
+```shell
+$ git config --global core.autocrlf input 
+```
+
+- Git在提交时自动地把行结束符CRLF转换成LF，而在拉取和签出代码时把LF转换成CRLF
+
+```shell
+$ git config --global core.autocrlf true 
+```
 
 
 
@@ -255,23 +273,8 @@ Windows下换行为CRLF，而Linux下换行为LF。为了避免同个仓库在�
 
 以Linux下开发为主，本地和远程仓库的换行都保持以LF结尾。
 
-- Linux下配置
-
-Git 在提交时把CRLF转换成LF，签出时不转换
-
-```shell
-$ git config --global core.autocrlf input 
-```
-
-- Windows下配置
-
-Git可以在你提交时自动地把行结束符CRLF转换成LF，而在签出代码时把LF转换成CRLF
-
-```shell
-$ git config --global core.autocrlf true 
-```
-
-
+- Linux下，设置为false
+- Windows下，设置为input
 
 ## git机制
 
