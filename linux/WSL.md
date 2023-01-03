@@ -12,6 +12,18 @@ Windows终端用于管理所有的终端如cmd、powerShell、WSL，交互性较
 
 请参考官网教程：https://docs.microsoft.com/zh-CN/windows/terminal/install
 
+### Win11下应用界面 配置
+如果是在win11系统下安装wsl2，则可以直接打开Linux下的桌面应用并在Windows下显示。
+参考：https://learn.microsoft.com/zh-cn/windows/wsl/tutorials/gui-apps
+- 安装
+安装完wsl后，打开powershell（管理员身份运行）：
+```shell
+wsl --update    #通过update更新到包含Linux GUI支持的最新版本
+
+wsl --shutdown  #需要重启wsl，关闭后，通过Windows terminal再次打开Ubuntu即可
+```
+- 测试
+打开Ubuntu终端，输入`gedit`即可弹出文本编辑界面。
 ## WSL开机启动
 
 ```shell
