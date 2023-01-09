@@ -2,16 +2,6 @@
 
 # Git基础
 
-## github用户名和密码
-
-用户名：AlexHAHA
-
-密码：ALEXxue0610
-
-邮箱：xueyuankui.good@163.com
-
-
-
 ## 初步配置使用教程
 
 ### 配置git
