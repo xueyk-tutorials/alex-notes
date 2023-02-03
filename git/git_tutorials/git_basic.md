@@ -264,7 +264,7 @@ $ git config --global core.autocrlf true
 以Linux下开发为主，本地和远程仓库的换行都保持以LF结尾。
 
 - Linux下，设置为false
-- Windows下，设置为input
+- Windows下，设置为true
 
 ## git机制
 
