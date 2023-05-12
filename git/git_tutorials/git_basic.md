@@ -266,6 +266,19 @@ $ git config --global core.autocrlf true
 - Linux下，设置为false
 - Windows下，设置为true
 
+
+
+## 忽略仓库中已经添加过的文件
+
+直接在.gitignore中增加忽略项无法忽略已经添加进仓库中的文件，如果需要将仓库中已经存在的文件加入忽略，则首先需要清除对相关文件的跟踪。
+
+```shell
+$ git rm -r --cached .vscode      # 清除文件夹跟踪
+$ git rm --cached settings.py     # 清除文件跟踪
+```
+
+然后再将需要忽略的文件添加至.gitignore中即可。
+
 ## git机制
 
 ### 教程参考
