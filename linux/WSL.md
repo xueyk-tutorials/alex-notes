@@ -6,6 +6,47 @@
 
 请参考官网教程：https://docs.microsoft.com/zh-cn/windows/wsl/install-manual
 
+#### 步骤 1 - 启用适用于 Linux 的 Windows 子系统
+
+管理员方式打开power shell
+
+```shell
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+```
+
+#### 步骤 2 - 检查运行 WSL 2 的要求
+
+#### 步骤 3 - 启用虚拟机功能
+
+```shell
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+```
+
+重启计算机。
+
+#### 步骤 4 - 下载 Linux 内核更新包
+
+下载最新包：
+
+- [适用于 x64 计算机的 WSL2 Linux 内核更新包](https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi)
+- 运行上一步中下载的更新包。 （双击以运行 - 系统将提示你提供提升的权限，选择“是”以批准此安装。）
+
+#### 步骤 5 - 将 WSL 2 设置为默认版本
+
+```shell
+wsl --set-default-version 2
+```
+
+#### 步骤 6 - 安装所选的 Linux 分发
+
+1. 打开 [Microsoft Store](https://aka.ms/wslstore)，并选择你偏好的 Linux 分发版。
+
+2. 在分发版的页面中，选择“获取”。
+
+3. 首次启动新安装的 Linux 分发版时，将打开一个控制台窗口，系统会要求你等待一分钟或两分钟，以便文件解压缩并存储到电脑上。 未来的所有启动时间应不到一秒。
+
+   然后，需要[为新的 Linux 分发版创建用户帐户和密码](https://learn.microsoft.com/zh-cn/windows/wsl/setup/environment#set-up-your-linux-username-and-password)。
+
 ### 安装Windows终端
 
 Windows终端用于管理所有的终端如cmd、powerShell、WSL，交互性较好。
@@ -15,6 +56,7 @@ Windows终端用于管理所有的终端如cmd、powerShell、WSL，交互性较
 ### Win11下应用界面 配置
 如果是在win11系统下安装wsl2，则可以直接打开Linux下的桌面应用并在Windows下显示。
 参考：https://learn.microsoft.com/zh-cn/windows/wsl/tutorials/gui-apps
+
 - 安装
 安装完wsl后，打开powershell（管理员身份运行）：
 ```shell
