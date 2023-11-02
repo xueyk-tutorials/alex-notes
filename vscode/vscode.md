@@ -1,25 +1,15 @@
 # vscode
 
-## Extensions
+## 基础
 
-VS Code功能扩展依赖于大量插件。
-
-点击左侧工具栏中的Extensions，会弹出插件列表。注意，插件分为本地Local和远端，本地代表的是当前安装VSCode的计算机，而远端一般是通过ssh远程连接的计算机，例如局域网中的另外一个电脑或者WSL2。
-
-如果是在远端计算机上开发，一定要确保远端计算机上安装了你需要的插件，例如我当前连接WSL，插件列表如下所示：
-
-![image-20220908151915049](imgs\image-20220908151915049.png)
-
-你可以通过点击远端WSL下载图标，下载对应的插件。
-
-## settings
+### settings
 
 打开设置
 
 - ctrl+,
 - 文件->首选项->设置
 
-### C++智能提示
+#### C++智能提示
 
 选择设置->Command Palette（快捷键ctrl+shift+P)，输入configuration，选择c/c++ Edit configuration，自动在当前目录下生成并打开c_cpp_properties.json：
 
@@ -52,25 +42,49 @@ VS Code功能扩展依赖于大量插件。
 
 这种方式，对于远程连接开发也是有效的。
 
-生成的
+## 快捷键
 
-## 插件推荐
+- Ctrl+D
 
-### Remote Development
+  选择与当前光标位置所在单词的下一个单词
+
+- Ctrl+G
+
+  跳转至指定行
+
+- Ctrl + \
+
+  移动文件至分割窗口
+
+## 插件
+
+VS Code功能扩展依赖于大量插件。
+
+点击左侧工具栏中的Extensions，会弹出插件列表。注意，插件分为本地Local和远端，本地代表的是当前安装VSCode的计算机，而远端一般是通过ssh远程连接的计算机，例如局域网中的另外一个电脑或者WSL2。
+
+如果是在远端计算机上开发，一定要确保远端计算机上安装了你需要的插件，例如我当前连接WSL，插件列表如下所示：
+
+![image-20220908151915049](imgs\image-20220908151915049.png)
+
+你可以通过点击远端WSL下载图标，下载对应的插件。
+
+### 插件推荐
+
+#### Remote Development
 
 - Remote SSH
 - Remote WSL
 - Remote Containter
 
-### C++
+#### C++
 
 Todo tree
 
 Doxygen Document
 
-## 插件使用
+### 相关插件使用
 
-### koroFileheader
+#### koroFileheader
 
 1. **配置**
 
@@ -98,4 +112,43 @@ Doxygen Document
 Ctrl + Win+i 文件头部注释快捷键
 
 Ctrl + Win+ t 函数注释
+
+
+
+
+
+## 代码格式化
+
+### c/c++代码格式化设置
+
+1. 安装c/c++、c/c++Extension Pack插件
+
+2. 打开工作空间设置
+
+   按`ctrl+shift+p`，输入settings，选择workspace settings，然后点击右上方进入GUI交互界面设置。这时会自动在项目目录下创建`.vscode/settings.json`配置文件。
+
+   添加如下配置：
+
+   ```json
+     "editor.tabCompletion": "on",
+     "editor.formatOnPaste": true,
+     "editor.formatOnSave": true,
+     "editor.formatOnType": true,
+   
+     // C_Cpp插件设置
+     "C_Cpp.autocompleteAddParentheses": true,
+     "C_Cpp.default.cppStandard": "c++11",
+     "C_Cpp.default.cStandard": "c11",
+     "C_Cpp.inlayHints.autoDeclarationTypes.enabled": false,
+     "C_Cpp.inlayHints.autoDeclarationTypes.showOnLeft": false,
+     "C_Cpp.inlayHints.parameterNames.enabled": false,
+     "C_Cpp.inlayHints.referenceOperator.enabled": false,
+     "C_Cpp.inlayHints.referenceOperator.showSpace": true,
+     "C_Cpp.intelliSenseEngineFallback": "enabled",
+     "C_Cpp.clang_format_fallbackStyle": "LLVM",
+     "C_Cpp.clang_format_sortIncludes": false,
+     "C_Cpp.formatting": "clangFormat",
+     "C_Cpp.codeAnalysis.clangTidy.enabled": true,
+     "C_Cpp.inlayHints.parameterNames.hideLeadingUnderscores": false,
+   ```
 
