@@ -152,3 +152,26 @@ Ctrl + Win+ t 函数注释
      "C_Cpp.inlayHints.parameterNames.hideLeadingUnderscores": false,
    ```
 
+## task.json文件
+
+task.json文件中通过"tasks"数组可以添加一个或多个task成员，以逗号分隔开。
+
+```json
+{
+    "tasks": [
+        {
+            // task-1
+        },
+        {
+			// task-2
+        }
+    ],
+    "version": "2.0.0"
+}
+```
+
+
+
+### 运行task
+
+快捷键`ctrl+shift+B`，如果有多个task则会弹出选择列表，鼠标点击选择对应的task即可。

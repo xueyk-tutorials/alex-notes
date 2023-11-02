@@ -164,6 +164,32 @@ git tag -d <tagName>
 git push origin :refs/tags/<tagName>
 ```
 
+## 变基(rebase)
+
+在开发过程中，不要在main分支上进行rebase操作，使用merge对其余开发分支的代码进行合并；
+
+在开发分支使用rebase操作，将main分支代码合并进来；
+
+
+
+### VScode的git插件操作
+
+current branch：当前的工作分支（打勾的分支），代码编辑只对当前分支有效。
+
+![image-20230213104614150](imgs\image-20230213104614150.png)
+
+#### Rebase Current Branch onto Branch
+
+说明：将当前分支基于分支（鼠标右键所选择的分支）进行变基。完成该操作后，选中的分支的commit会添加到当前当前分支中，并且添加在当前分支的commit之前。
+
+应用场景：
+
+1）如果在dev1上正在进行开发（当前分支），这时候需要用到main的最新代码希望将main合并进来；
+
+
+
+
+
 
 
 ## 创建发行版( Release)
