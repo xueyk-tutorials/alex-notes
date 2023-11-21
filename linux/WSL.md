@@ -185,7 +185,7 @@ netsh winsock reset
 ```bash
 netsh interface portproxy add v4tov4 listenaddress=监听地址 listenport=监听端口 connectaddress=转发到的地址 connectport=转发到的端口
 #例如新增外部ssh访问转发至本机的WSL2：
-netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=22 connectaddress=wsl2ip connectport=22
+netsh interface portproxy add v4tov4 listenaddress=127.0.0.1 listenport=22 connectaddress=wsl2ip connectport=22
 ```
 
 - 查看设置了哪些端口转发
