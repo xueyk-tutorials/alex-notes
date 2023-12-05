@@ -155,3 +155,28 @@ $ sudo ps -e |grep ssh
  132645 ?        00:00:00 sshd
 ```
 
+重启ssh服务
+
+```shell
+sudo service ssh restart
+```
+
+
+
+如果客户端无法连接，则编辑ssh主机配置文件`sudo vi /etc/ssh/sshd_config`，查看如下配置项是否开启：
+
+```shell
+PasswordAuthentication yes
+PermitRootLogin yes
+```
+
+
+
+## 网络调试
+
+### tcpdump
+
+```shell
+ sudo tcpdump udp port 123
+```
+
