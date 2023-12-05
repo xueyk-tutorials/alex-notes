@@ -164,7 +164,9 @@ https://blog.csdn.net/weixin_41301508/article/details/108939520?spm=1001.2101.30
 
 ### 外部计算机访问WSL2
 
-#### 通过netsh配置
+#### 原理
+
+##### 通过netsh配置
 
 https://zhuanlan.zhihu.com/p/357038111
 
@@ -172,13 +174,7 @@ https://zhuanlan.zhihu.com/p/357038111
 netsh winsock reset
 ```
 
-#### 其他方式
-
-实现开机后自动转发主机端口到WSL2的端口,便于外网访问WSL2.
-
-直接上地址:https://github.com/yhl452493373/WSL2-Auto-Port-Forward
-
-### netsh使用
+##### netsh使用
 
 - 新增端口转发
 
@@ -203,6 +199,32 @@ netsh interface portproxy delete v4tov4 listenaddress=192.168.88.110 listenport=
 > Note:
 >
 > **使用netsh interface portproxy记得配置Windows和出口路由器防火墙规则**
+
+#### 创建端口转发
+
+##### 查看IP
+
+
+
+##### 示例
+
+新增端口转发：转发主机14550至WSL2的14550端口。
+
+```shell
+#1）使用localhost
+$ netsh interface portproxy add v4tov4 listenport=14550 listenaddress=0.0.0.0 connectport=14550 connectaddress=localhost
+
+#2）如果不用localhost，则查看WSL VM的ip地址，例如为192.168.208.1
+$ netsh interface portproxy add v4tov4 listenport=14550 listenaddress=0.0.0.0 connectport=14550 connectaddress=192.168.215.89
+```
+
+> 在18945之后的版本中, 微软改进了WSL2, 使我们可以使用localhost, 访问WSL的网络服务
+
+#### 其他方式
+
+实现开机后自动转发主机端口到WSL2的端口,便于外网访问WSL2.
+
+直接上地址:https://github.com/yhl452493373/WSL2-Auto-Port-Forward
 
 ## WSL桌面
 
