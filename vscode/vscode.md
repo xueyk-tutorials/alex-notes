@@ -70,6 +70,8 @@ VS Code功能扩展依赖于大量插件。
 
 ### 插件推荐
 
+- gitlens
+
 #### Remote Development
 
 - Remote SSH
