@@ -180,3 +180,18 @@ PermitRootLogin yes
  sudo tcpdump udp port 123
 ```
 
+
+
+## 文件操作
+
+### tar
+
+
+
+```shell
+# 创建压缩包
+$ tar -cvf 生成的打包文件名.tar 待打包的文件
+# 解压
+$ tar -xvf 要解压的压缩包.tar
+```
+
