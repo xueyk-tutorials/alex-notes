@@ -536,6 +536,14 @@ origin
 $ git remote set-url origin git@git.cetcs.com:cetcs/project-29base/code-onboard.git
 ```
 
+#### 同步远程仓库
+
+如果远程仓库有分支重命名、删除等操作，为了与远程同步，可使用如下命令：
+
+```shell
+$ git remote prune np_gitee
+```
+
 
 
 ### 分支
