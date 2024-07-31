@@ -41,6 +41,24 @@
 - `revert` 撤销某次提交
    Reverts a previous commit
 
+## (amend)
+
+使用amend可以覆盖上一次的提交，而不会产生新的提交信息。
+
+```shell
+git commit --amend  --no-edit
+```
+
+
+
+本地修改后如果要推到远端，git push时一定要使用 --force-with-lease
+
+```shell
+git push --force-with-lease origin master
+```
+
+
+
 ## 撤销(reset)
 
 撤销的命令为`git reset`，
