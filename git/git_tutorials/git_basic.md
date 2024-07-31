@@ -268,6 +268,10 @@ $ git config --global core.autocrlf true
 
 
 
+### 使用命令转换
+
+unix2dos与dos2unix是一对互转的命令，用于将CRLF与LF进行互转。
+
 ## 忽略仓库中已经添加过的文件
 
 直接在.gitignore中增加忽略项无法忽略已经添加进仓库中的文件，如果需要将仓库中已经存在的文件加入忽略，则首先需要清除对相关文件的跟踪。
