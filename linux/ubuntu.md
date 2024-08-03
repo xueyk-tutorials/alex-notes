@@ -124,11 +124,11 @@ deb-src http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted univer
 
 
 
-# 开机自启动
+## 开机自启动
 
-## linux service
+### linux service
 
-### 示例1：基本
+#### 示例1：基本
 
 1. 添加服务脚本
 
@@ -242,9 +242,49 @@ $ kazam
 
 
 
-### 文件共享
+## 文件共享
 
-#### samba
+### 挂载网络文件夹
+
+在Ubuntu中，您可以使用命令行来挂载网络上的共享文件夹。以下是如何操作的步骤：
+
+1. 安装必要的包：
+
+```bash
+sudo apt-get install cifs-utils
+```
+
+1. 创建一个本地挂载点：
+
+```bash
+mkdir ~/remote_share
+```
+
+1. 挂载共享文件夹：
+
+```bash
+sudo mount -t cifs //服务器地址/共享名称 ~/remote_share -o username=用户名,password=密码
+```
+
+将`服务器地址`、`共享名称`、`用户名`和`密码`替换为实际的值。
+
+例如，如果服务器地址是`192.168.1.100`，共享名称是`myshare`，用户名是`user1`，密码是`pass123`，则命令将是：
+
+```bash
+sudo mount -t cifs //192.168.1.100/myshare ~/remote_share -o username=user1,password=pass123
+```
+
+注意：出于安全考虑，不推荐在命令行中直接包含密码。您可以使用`cred`选项来指定凭据文件，或者使用`keytab`文件。
+
+要卸载共享文件夹，请使用以下命令：
+
+```bash
+sudo umount ~/remote_share
+```
+
+
+
+### samba
 
 使用samba，Ubuntu与win10共享文件。
 
@@ -257,7 +297,7 @@ $ samba -V
 
 
 
-### 卸载
+#### 卸载
 
 ```shell
 # samba服务器卸载
@@ -268,7 +308,7 @@ apt-get remove samba-common
 
 
 
-### 示例一:基于当前计算机用户创建共享文件夹
+#### 示例一:基于当前计算机用户创建共享文件夹
 
 1. samba配置
 
