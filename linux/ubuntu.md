@@ -254,13 +254,13 @@ $ kazam
 sudo apt-get install cifs-utils
 ```
 
-1. 创建一个本地挂载点：
+2. 创建一个本地挂载点：
 
 ```bash
 mkdir ~/remote_share
 ```
 
-1. 挂载共享文件夹：
+3. 挂载共享文件夹：
 
 ```bash
 sudo mount -t cifs //服务器地址/共享名称 ~/remote_share -o username=用户名,password=密码
@@ -281,6 +281,22 @@ sudo mount -t cifs //192.168.1.100/myshare ~/remote_share -o username=user1,pass
 ```bash
 sudo umount ~/remote_share
 ```
+
+配置重启有效
+
+使挂载点持久化。默认情况下，挂载点只在系统重启前有效。要使挂载点持久，请向“/etc/fstab”文件添加条目。**使用以下命令打开文件：**
+
+```bash
+$ sudo nano /etc/fstab
+```
+
+然后在文件末尾添加：
+
+```bash
+//192.168.1.100/myshare ~/remote_share cifs username=user1,password=pass123 0 0
+```
+
+
 
 
 
