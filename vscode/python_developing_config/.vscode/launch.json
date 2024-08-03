@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "python": "C:\\nextpilot-windows-toolchain\\toolchain\\python\\python-3.11.9-amd64\\python.exe",
+            "program": "${file}",
+            "args": [
+                "--a", "1",
+                "--b", "2"
+
+            ], 
+            "console": "integratedTerminal",
+            "justMyCode": true
+        }
+    ]
+}
