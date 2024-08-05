@@ -197,3 +197,44 @@ task.json文件中通过"tasks"数组可以添加一个或多个task成员，以
 ### 运行task
 
 快捷键`ctrl+shift+B`，如果有多个task则会弹出选择列表，鼠标点击选择对应的task即可。
+
+
+
+## 远程连接
+
+### 服务端无法连接
+
+如果服务端没有联网，则无法下载vscode-server.
+
+![橙讯图片_1722845009017](imgs/vscode-remote-failed.png)
+
+在终端中查找commit ID
+
+![vscode-remote-commitID](imgs/vscode-remote-commitID.png)
+
+通过浏览器下载
+
+```bash
+# 如果服务器CPU是arm
+https://update.code.visualstudio.com/commit:f1b07bd25dfad64b0167beb15359ae573aecd2cc/server-linux-arm64/stable
+# 如果服务器CPU是AMD/Intel
+https://update.code.visualstudio.com/commit:f1b07bd25dfad64b0167beb15359ae573aecd2cc/server-linux-x64/stable
+```
+
+
+
+将文件传到服务器计算机：
+
+```bash
+scp vscode-server-linux-arm64.tar.gz ubuntu@192.168.1.202:~/.vscode-server/bin
+```
+
+放到`~/.vscode-server/bin/${commit id}`目录下：
+
+```bash
+cd ~/.vscode-server/bin/${commit id}
+tar -zxf vscode-server-linux-x64.tar.gz
+
+mv vscode-server-linux-x64/* ./
+```
+
