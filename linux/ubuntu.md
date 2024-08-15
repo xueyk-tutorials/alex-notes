@@ -115,6 +115,31 @@ deb http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe m
 deb-src http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse
 ```
 
+## 软件安装
+
+### 下载离线安装包
+
+各版本的Linux系统的所有软件包都可以在网站[Packages for Linux and Unix - pkgs.org](https://pkgs.org/)查询或下载。例如Ubuntu20.04-amd64版本相关软件包可以在[Ubuntu 20.04 LTS (Focal Fossa) - Ubuntu Main amd64 (pkgs.org)](https://ubuntu.pkgs.org/20.04/ubuntu-main-amd64/)链接中查看。在查询框输入软件包名称就能够列出所有软件包。
+
+使用`apt download`命令可将软件安装包下载到本地。
+
+- 可以指定软件包具体名称
+
+  在软件包网站查询到某个包的具体名称，这样的好处是可以下载与目标配置环境一致的软件包。
+
+```bash
+$ apt download chrony_3.5-6ubuntu6.2_amd64.deb
+```
+
+- 也可以不指定，由系统自行判断并选择下载
+
+  这样会根据当前计算机环境下载相符合的软件包。
+
+```bash
+$ apt download chrony
+```
+
+
 
 ## Nvidia驱动安装
 

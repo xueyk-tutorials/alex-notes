@@ -1,4 +1,12 @@
-# WSL教程
+# WSL2笔记
+
+这里以Windows11为例记录WSL2的使用。
+
+参考：
+
+https://learn.microsoft.com/zh-cn/windows/wsl/install
+
+https://learn.microsoft.com/zh-cn/windows/wsl/wsl-config
 
 ## 安装
 
@@ -103,6 +111,8 @@ C:\Users\alex>wsl --list --verbose
 
 注意，如果只是关闭打开的分发版终端是不会停止其运行的！！！
 
+**WSL2有个8秒原则，如果是进行一些配置需要关机，故一定要关机后等待8秒再执行启动操作。**
+
 ### 卸载
 
 列出当前已安装的Linux
@@ -180,103 +190,24 @@ wsl --import ubuntu-alex D:\wsl2 C:\Users\alex\Desktop\ubuntu.tar
 
 
 
-## 开机启动
+## 网络
 
-```shell
-sudo cat > /etc/init.wsl << EOF
-#!/bin/sh
-/etc/init.d/ssh start
-/etc/init.d/nginx start
-EOF
+### 镜像网络配置
 
-sudo chmod +x /etc/init.wsl
-```
+通过wsl配置文件进行网络配置，使本地网络与WSL网络配置为同一个IP。
 
-## WSL网络
+1. 在用户根目录下创建`.wslconfig`文件；
 
-### WSL2 IP配置相关
+2. 添加如下内容：
 
-#### WSL2固定IP
+   ```bash
+   [wsl2]
+   networkingMode=mirrored
+   ```
 
-每次启动WSL前，我们可以通过windows给WSL设置分配IP
+3. 重启wsl。
 
-1、管理员权限打开powershell
-
-2、给WSL添加IP地址
-
-这里我们添加的IP地址为`192.168.50.24`
-
-```shell
-$ wsl -d Ubuntu-20.04 -u root ip addr add 192.168.50.24/24 broadcast 192.168.50.255 dev eth0 label eth0:1
-```
-
-![image-20210901103928928](https://gitee.com/bpnotes/pic-museum/raw/master/pictures/image-20210901103928928.png)
-
-现在启动WSL2后，查看IP地址如下：
-
-![image-20210901104000711](https://gitee.com/bpnotes/pic-museum/raw/master/pictures/image-20210901104000711.png)
-
-3、给Win10添加 IP地址
-
-```shell
-$ netsh interface ip add address "vEthernet (WSL)" 192.168.50.12 255.255.255.0
-```
-
-该命令运行后，输入`ipconfig`查看Win10下网络配置如下：
-
-![image-20210901104701726](https://gitee.com/bpnotes/pic-museum/raw/master/pictures/image-20210901104701726.png)
-
-由于每次手动设置很麻烦，可以将这两个设置命令写在一个.bat文件中，并且开机自启动！
-
-开机启动设置
-
-##### 方法一：编写启动脚本
-
-- 打开启动文件夹
-
-![image-20210901104259292](https://gitee.com/bpnotes/pic-museum/raw/master/pictures/image-20210901104259292.png)
-
-- 在`C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp`文件夹中放启动脚本即可。
-
-这里启动脚本为wsl2_ip_config.bat文件，内容如下：
-
-```shell
-@echo off
-wsl -d Ubuntu-20.04 -u root ip addr add 192.168.50.16/24 broadcast 192.168.50.255 dev eth0 label eth0:1
-
-netsh interface ip add address "vEthernet (WSL)" 192.168.50.88 255.255.255.0
-```
-
-
-
-![image-20210901104942186](https://gitee.com/bpnotes/pic-museum/raw/master/pictures/image-20210901104942186.png)
-
-> 注意：
->
-> 1、每次开机，启动脚本运行时都会弹出终端框；如果不希望这样，参考方法二；
->
-> 2、Windows的"vEthernet (WSL)"虚拟网卡，只有每次启动**WSL**后才会生效，所以你会发现，如果WSL的IP配置成功，但Win10下的IP没有添加成功，所以每次还需要启动一下WSL然后再运行一次配置命令：
->
-> $ netsh interface ip add address "vEthernet (WSL)" 192.168.50.88 255.255.255.0
-
-##### 方法二：通过vbs启动bat脚本
-
-1、将启动脚本wsl2_ip_config.bat放到路径`E:\Develop_drone\2Simulation\`下。
-
-2、编写一个**wsl2_setup_scripts.vbs**文件
-
-```shell
-set ws = WScript.CreateObject("WScript.Shell")
-ws.Run "E:\Develop_drone\2Simulation\wsl2_ip_config.bat /start",0
-```
-
-其他参考：
-
-https://blog.csdn.net/weixin_41301508/article/details/108939520?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1.pc_relevant_default&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1.pc_relevant_default&utm_relevant_index=2
-
-
-
-### 外部计算机访问WSL2
+### 端口映射
 
 #### 原理
 
@@ -318,8 +249,6 @@ netsh interface portproxy delete v4tov4 listenaddress=192.168.88.110 listenport=
 
 ##### 查看IP
 
-
-
 ##### 示例
 
 新增端口转发：转发主机14550至WSL2的14550端口。
@@ -333,6 +262,24 @@ $ netsh interface portproxy add v4tov4 listenport=14550 listenaddress=0.0.0.0 co
 ```
 
 > 在18945之后的版本中, 微软改进了WSL2, 使我们可以使用localhost, 访问WSL的网络服务
+
+## 开机启动
+
+```shell
+sudo cat > /etc/init.wsl << EOF
+#!/bin/sh
+/etc/init.d/ssh start
+/etc/init.d/nginx start
+EOF
+
+sudo chmod +x /etc/init.wsl
+```
+
+
+
+### 外部计算机访问WSL2
+
+> 
 
 #### 其他方式
 
