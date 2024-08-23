@@ -1,8 +1,15 @@
 # WSL2笔记
 
+## 简介
+
 这里以Windows11为例记录WSL2的使用。
 
-参考：
+系统版本信息
+
+- 版本：Windows 11 家庭中文版
+- 版本号：23H2
+
+参考官方资料：
 
 https://learn.microsoft.com/zh-cn/windows/wsl/install
 
@@ -16,7 +23,7 @@ https://learn.microsoft.com/zh-cn/windows/wsl/wsl-config
 
 #### 步骤 1 - 启用适用于 Linux 的 Windows 子系统
 
-管理员方式打开power shell
+以管理员方式打开Windows PowerShell，输入如下命令：
 
 ```shell
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
@@ -24,7 +31,16 @@ dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux 
 
 #### 步骤 2 - 检查运行 WSL 2 的要求
 
+如果是 Windows 11系统则默认支持WSL2。
+
+如果Windows 10系统，则有如下要求：
+
+- 对于 x64 系统：版本 1903 或更高版本，内部版本为 18362.1049 或更高版本。
+- 对于 ARM64 系统：版本 2004 或更高版本，内部版本为 19041 或更高版本。
+
 #### 步骤 3 - 启用虚拟机功能
+
+在Windows PowerShell，输入如下命令：
 
 ```shell
 dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
@@ -47,17 +63,75 @@ wsl --set-default-version 2
 
 #### 步骤 6 - 安装所选的 Linux 分发
 
+##### 通过应用商店
+
 1. 打开 [Microsoft Store](https://aka.ms/wslstore)，并选择你偏好的 Linux 分发版。
 
-2. 在分发版的页面中，选择“获取”。
+2. 在分发版的页面中，根据需要版本点击右上角的“获取”。
+
+   ![microsoft_store](imgs/microsoft_store.png)
+
+   安装完成后再次点击打开即可。
 
 3. 首次启动新安装的 Linux 分发版时，将打开一个控制台窗口，系统会要求你等待一分钟或两分钟，以便文件解压缩并存储到电脑上。 未来的所有启动时间应不到一秒。
 
    然后，需要[为新的 Linux 分发版创建用户帐户和密码](https://learn.microsoft.com/zh-cn/windows/wsl/setup/environment#set-up-your-linux-username-and-password)。
 
+##### 通过命令行
+
+查看可用的分发版：
+
+```bash
+wsl --list --online
+```
+
+> 如下：
+>
+> ```bash
+> C:\Users\alex>wsl --list --online
+> 以下是可安装的有效分发的列表。
+> 使用 'wsl.exe --install <Distro>' 安装。
+> 
+> NAME                                   FRIENDLY NAME
+> Ubuntu                                 Ubuntu
+> Debian                                 Debian GNU/Linux
+> kali-linux                             Kali Linux Rolling
+> Ubuntu-18.04                           Ubuntu 18.04 LTS
+> Ubuntu-20.04                           Ubuntu 20.04 LTS
+> Ubuntu-22.04                           Ubuntu 22.04 LTS
+> Ubuntu-24.04                           Ubuntu 24.04 LTS
+> OracleLinux_7_9                        Oracle Linux 7.9
+> OracleLinux_8_7                        Oracle Linux 8.7
+> OracleLinux_9_1                        Oracle Linux 9.1
+> openSUSE-Leap-15.6                     openSUSE Leap 15.6
+> SUSE-Linux-Enterprise-15-SP5           SUSE Linux Enterprise 15 SP5
+> SUSE-Linux-Enterprise-Server-15-SP6    SUSE Linux Enterprise Server 15 SP6
+> openSUSE-Tumbleweed                    openSUSE Tumbleweed
+> ```
+>
+> **如果显示无法连接服务器，可以在hosts下增加：**
+>
+> ```bash
+> 185.199.108.133 raw.githubusercontent.com   
+> ```
+
+然后下载安装
+
+```bash
+wsl --install Ubuntu-20.04 --web-download
+```
+
+
+
+> 安装的默认位置是：
+>
+> C:\Users\alex\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\ext4.vhdx
+
 ### 安装Windows终端
 
-Windows终端用于管理所有的终端如cmd、powerShell、WSL，交互性较好。
+Windows终端用于管理所有的终端如cmd、Windows PowerShell、WSL，交互性较好。该终端相当于一个“各终端集合”，就能够快速打开各类终端：
+
+![image-20240815224741097](imgs/image-20240815224741097.png)
 
 请参考官网教程：https://docs.microsoft.com/zh-CN/windows/terminal/install
 
@@ -194,6 +268,12 @@ wsl --import ubuntu-alex D:\wsl2 C:\Users\alex\Desktop\ubuntu.tar
 
 ### 镜像网络配置
 
+打开Windows终端，打开Ubuntu和cmd终端窗口，分别输入`ifconfig`和`ipconfig`命令查看网络地址，如下图：
+
+![image-20240815225303286](imgs/image-20240815225303286.png)
+
+可以看到，左边Ubuntu的地址与右边Windows系统地址不在一个网段上（不在一个局域网内），那么与本机同网段的其他计算机（如：本机与其他计算机连接同一个交换机）是无法直接与Ubuntu进行通信的。
+
 通过wsl配置文件进行网络配置，使本地网络与WSL网络配置为同一个IP。
 
 1. 在用户根目录下创建`.wslconfig`文件；
@@ -205,7 +285,15 @@ wsl --import ubuntu-alex D:\wsl2 C:\Users\alex\Desktop\ubuntu.tar
    networkingMode=mirrored
    ```
 
-3. 重启wsl。
+3. 先关闭wsl，在Windows终端输入`wsl --shutdown`;
+
+4. 等待8秒后启动Ubuntu。
+
+再次查看Ubuntu网络地址，如下：
+
+![image-20240815230424666](imgs/image-20240815230424666.png)
+
+可以看到，Ubuntu与Windows的IP地址一样了。
 
 ### 端口映射
 
@@ -213,7 +301,7 @@ wsl --import ubuntu-alex D:\wsl2 C:\Users\alex\Desktop\ubuntu.tar
 
 ##### 通过netsh配置
 
-https://zhuanlan.zhihu.com/p/357038111
+参考：https://zhuanlan.zhihu.com/p/357038111
 
 ```html
 netsh winsock reset
@@ -277,16 +365,6 @@ sudo chmod +x /etc/init.wsl
 
 
 
-### 外部计算机访问WSL2
-
-> 
-
-#### 其他方式
-
-实现开机后自动转发主机端口到WSL2的端口,便于外网访问WSL2.
-
-直接上地址:https://github.com/yhl452493373/WSL2-Auto-Port-Forward
-
 ## WSL桌面
 
 ### 使用XLaunch+xfce4
@@ -334,17 +412,17 @@ export DISPLAY=<WSL的IP>:0     #例如我的配置为 export DISPLAY=172.24.48.
 $ startxfce4
 ```
 
-![image-20220907155852780](H:\alex-github\alex-notes\linux\imgs\image-20220907155852780.png)
+![image-20220907155852780](imgs\image-20220907155852780.png)
 
 启动后，Windows界面中的XLaunch黑框，就会显示Ubuntu界面。
 
-![image-20220907155936324](H:\alex-github\alex-notes\linux\imgs\image-20220907155936324.png)
+![image-20220907155936324](imgs\image-20220907155936324.png)
 
 ### 使用xrdp实现远程桌面
 
-使用xrdp+xfce4进行远程桌面访问
+使用xrdp+xfce4进行远程桌面访问。
 
-#### 安装包
+#### 安装相关软件包
 
 ```shell
 $ sudo apt update
@@ -396,14 +474,6 @@ $ sudo /etc/init.d/xrdp start
 
 注意这里的端口号应当与上面修改配置中一致
 
-![img](https://pic2.zhimg.com/v2-b54f20073cc799a263e989a08ac1e96d_r.jpg)
+![img](imgs/v2-b54f20073cc799a263e989a08ac1e96d_r.jpg)
 
 输入WSL2中使用的账号密码即可。
-
-![img](https://gitee.com/bpnotes/pic-museum/raw/master/pictures/v2-d7675c5320343dafc169040d1e881594_720w.jpg)
-
-> 备注：
->
-> 账号为：alex
->
-> 密码为：alex
