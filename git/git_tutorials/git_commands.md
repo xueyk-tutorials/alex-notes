@@ -57,6 +57,42 @@ git commit --amend  --no-edit
 git push --force-with-lease origin master
 ```
 
+## 关联/跟踪
+
+- 手动设置本地分支跟踪远程分支
+
+```bash
+git branch --set-upstream-to=origin/feature-branch
+```
+
+- 在创建分支时指定跟踪关系
+
+```bash
+git checkout -b feature-branch origin/feature-branch
+```
+
+- 修改现有的跟踪关系
+
+```bash
+git branch --unset-upstream
+git branch --set-upstream-to=origin/new-remote-branch
+```
+
+- 验证分支跟踪关系
+
+这个命令会显示当前分支的状态，包括它是否与远程分支同步。
+
+```bash
+git status
+
+On branch feature-branch
+Your branch is up to date with 'origin/feature-branch'.
+```
+
+
+
+
+
 
 
 ## 撤销(reset)

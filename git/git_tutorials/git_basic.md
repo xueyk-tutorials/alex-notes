@@ -283,6 +283,63 @@ $ git rm --cached settings.py     # 清除文件跟踪
 
 然后再将需要忽略的文件添加至.gitignore中即可。
 
+## 在本地创建git服务
+
+​		在项目开发中一般使用gitee、codeup等作为远端仓库，但在没网的情况下，如何实现局域网内各计算机下的项目同步呢？
+​		解决方案是在局域网下指定一个计算机做为”远端服务器“，在该远端服务器上创建”远端仓库“，局域网下所有的计算机都与该仓库同步即可。
+
+1. 在本地服务器创建一个共享文件夹
+       这里我们在服务器D盘创建alex_share文件夹，其网络共享路径为：//ALEX-XIAOM/alex_shared/
+
+2. 在服务器的共享文件夹创建一个”远端仓库“
+       在共享文件夹创建`cetcs-swarm.git`文件夹。然后进入该文件路径后创建裸仓库：
+
+```bash
+git init –bare
+```
+
+3. 在本地服务器上已有的开发项目中添加新建的远端仓库
+   	进入开发项目中，添加共享目录下的远端仓库并取名为local，然后将项目代码推送到local。
+
+```bash
+git remote add origin D:/alex_shared/cetcs-swarm.git
+git push -u local master
+```
+
+​		到这一步，我们在本地服务器下创建了一个”远端仓库“，并将服务器上现有的项目推送到了”远端仓库“
+
+4. 在本地计算机A拉取仓库
+
+```bash
+git clone //ALEX-XIAOM/alex_shared/cetcs-swarm.git
+git checkout master
+```
+
+如果本地计算机是Linux环境，有可能`//ALEX-XIAOM/alex_shared`无法访问，可以先将该网络文件夹挂载到本地文件目录下，然后再通过挂载目录访问。
+
+```bash
+$ mkdir ~/remote_share
+$ sudo mount -t cifs //192.168.1.180/alex_shared ~/remote_share -o username=alex,password=alex
+```
+
+- 如果没有仓库，则克隆仓库
+
+```bash
+$ git clone ~/remote_share/cetcs-swarm.git
+```
+
+- 如果本地已有仓库，则新建远端仓库再同步
+
+```bash
+$ git remote add local ~/remote_share/cetcs-swarm.git
+$ git fetch local
+$ git pull local <branch>
+```
+
+> 如果拉取local远端仓库出错提示：fatal: detected dubious ownership in repository at '/home/ubuntu/remote_share/cetcs-swarm.git/.git'
+>
+> 则执行`git config --global --add safe.directory /home/ubuntu/remote_share/cetcs-swarm.git/.git`
+
 ## git机制
 
 ### 教程参考

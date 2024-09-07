@@ -252,6 +252,8 @@ wsl --import ubuntu-alex D:\wsl2 C:\Users\alex\Desktop\ubuntu.tar
   ```bash
   [user]
   default=alex
+  [boot]
+  systemd=true
   ```
 
   > 这里alex是迁移前就创建的默认用户名，根据情况改为你自己的用户名即可。
