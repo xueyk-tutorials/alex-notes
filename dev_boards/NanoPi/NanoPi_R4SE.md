@@ -1,6 +1,38 @@
-# 首次开机
+# 简介
 
-## 参考
+## 结构
+
+产品底部有四个螺丝孔（黑色垫片封住了），可以进行拆卸。
+
+### 尺寸
+
+
+
+## 电气
+
+### 电路板布局
+
+![NanoPi_R4SE_Layout](imgs/NanoPi_R4SE_Layout.jpg)
+
+### 调试串口
+
+开发板提供了一路调试串口（UART2），3V电平, 波特率为1500000bps。
+
+| 引脚 | 定义        | 描述   |
+| ---- | ----------- | ------ |
+| 1    | GND         | 0V     |
+| 2    | UART2DBG_TX | output |
+| 3    | UART2DBG_RX | intput |
+
+
+
+# 如何使用
+
+## 首次开机
+
+开发板默认安装的是FriendlyWrt 23.05.2系统。
+
+### 参考
 
 http://wiki.friendlyelec.com/wiki/index.php/NanoPi_R4SE/zh#.E6.96.B9.E6.B3.953:_.E9.80.9A.E8.BF.87USB.E7.83.A7.E5.86.99
 
