@@ -264,6 +264,62 @@ wsl --import ubuntu-alex D:\wsl2 C:\Users\alex\Desktop\ubuntu.tar
   wsl --shutdown
   ```
 
+## 修改用户名密码
+
+### 以root登录
+
+启动Ubuntu后，编辑`/etc/wsl.conf`文件，删除[user]相关内容，只保留[root]：
+
+```bash
+[boot]
+systemd=true
+```
+
+关闭Ubuntu后，关闭wsl
+
+```bash
+wsl --shutdown
+```
+
+等待30s后再进入Ubuntu就是root了。
+
+### 修改用户名
+
+```bash
+usermod -l new_username old_username
+# 例如
+usermod -l alex bill
+```
+
+### 更改组名称
+
+```bash
+groupmod -n newUsername oldUsername
+```
+
+
+
+### 更改主目录名称
+
+将旧用户目录下内容迁移至新用户目录。
+
+```bash
+usermod -d new_home_directory -m new_username
+# 例如
+usermod -d /home/alex -m alex
+```
+
+### 修改默认登录用户为新用户
+
+修改完毕后，编辑/etc/wsl.conf文件：
+
+```bash
+[user]
+default=alex
+[boot]
+systemd=true
+```
+
 
 
 ## 网络
