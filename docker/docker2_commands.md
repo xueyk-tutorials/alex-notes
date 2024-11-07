@@ -18,7 +18,7 @@ docker 命令 --help           #帮助命令
 docker run --help | grep <参数>
 ```
 
-### 
+
 
 ## 镜像命令
 
@@ -105,6 +105,12 @@ aeb6b16ce012: Pull complete
 Digest: sha256:be70d18aedc37927293e7947c8de41ae6490ecd4c79df1db40d1b5b5af7d9596
 Status: Downloaded newer image for mysql:5.7
 docker.io/library/mysql:5.7
+```
+
+手动指定镜像地址安装
+
+```bash
+docker pull docker.mirrors.ustc.edu.cn/library/mysql
 ```
 
 ### 移除镜像
