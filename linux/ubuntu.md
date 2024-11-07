@@ -15,6 +15,18 @@ Codename:   xenial              //ubuntu的代号名称
 
 显示linux的内核版本和系统是多少位的：X86_64代表系统是64位的。
 
+## 查看CPU信息
+
+```bash
+dpkg --print-architecture
+```
+
+
+
+```
+cat /proc/cpuinfo
+```
+
 ## 镜像源
 
 通过编辑`/etc/apt/sources.list`配置文件，添加镜像源。特别注意的是，一定将sources.list的所有内容删除后再写入新的镜像源。
