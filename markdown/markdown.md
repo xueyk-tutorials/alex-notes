@@ -1,5 +1,51 @@
 # markdown
 
+## 公式
+
+### 公式序号
+
+在typora文件菜单中选择偏好设置，在markdown->公式中勾选自动添加序号。
+
+### 添加公式标号
+
+在公式后面通过`\label{}`添加标号。例如：
+$$
+F=ma
+\label{eq_force}
+$$
+
+### 公式引用
+
+通过`\refeq{}`对公式引用。例如：
+
+式$\refeq{eq_force}$描述了力与加速度的关系。
+
+### 对齐
+
+$$
+\begin{align}
+\begin{pmatrix}
+t \\
+p
+\end{pmatrix} &=
+\begin{bmatrix}
+m1 & n1 \\
+m2 & n2 \\
+\end{bmatrix}*
+\begin{pmatrix}
+h \\
+v
+\end{pmatrix}\\ &=
+A*
+\begin{pmatrix}
+h \\
+v
+\end{pmatrix}
+\end{align}
+$$
+
+ 
+
 ## 格式
 
 ### 分页

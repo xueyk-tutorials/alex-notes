@@ -15,6 +15,18 @@ Codename:   xenial              //ubuntu的代号名称
 
 显示linux的内核版本和系统是多少位的：X86_64代表系统是64位的。
 
+## 查看CPU信息
+
+```bash
+dpkg --print-architecture
+```
+
+
+
+```
+cat /proc/cpuinfo
+```
+
 ## 镜像源
 
 通过编辑`/etc/apt/sources.list`配置文件，添加镜像源。特别注意的是，一定将sources.list的所有内容删除后再写入新的镜像源。
@@ -114,6 +126,81 @@ deb-src http://mirrors.aliyun.com/ubuntu/ focal-proposed main restricted univers
 deb http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse
 deb-src http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse
 ```
+
+### 镜像源22.04
+
+#### 阿里云
+
+```bash
+deb http://mirrors.aliyun.com/ubuntu/ jammy main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ jammy main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ jammy-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ jammy-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ jammy-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ jammy-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ jammy-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ jammy-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ jammy-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ jammy-backports main restricted universe multiverse
+```
+
+#### 清华
+
+```bash
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-proposed main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-proposed main restricted universe multiverse
+```
+
+
+
+#### 中科大
+```bash
+deb https://mirrors.ustc.edu.cn/ubuntu/ jammy main restricted universe multiverse
+deb-src https://mirrors.ustc.edu.cn/ubuntu/ jammy main restricted universe multiverse
+deb https://mirrors.ustc.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
+deb-src https://mirrors.ustc.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
+deb https://mirrors.ustc.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse
+deb-src https://mirrors.ustc.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse
+deb https://mirrors.ustc.edu.cn/ubuntu/ jammy-security main restricted universe multiverse
+deb-src https://mirrors.ustc.edu.cn/ubuntu/ jammy-security main restricted universe multiverse
+deb https://mirrors.ustc.edu.cn/ubuntu/ jammy-proposed main restricted universe multiverse
+deb-src https://mirrors.ustc.edu.cn/ubuntu/ jammy-proposed main restricted universe multiverse
+```
+
+
+
+## 软件安装
+
+### 下载离线安装包
+
+各版本的Linux系统的所有软件包都可以在网站[Packages for Linux and Unix - pkgs.org](https://pkgs.org/)查询或下载。例如Ubuntu20.04-amd64版本相关软件包可以在[Ubuntu 20.04 LTS (Focal Fossa) - Ubuntu Main amd64 (pkgs.org)](https://ubuntu.pkgs.org/20.04/ubuntu-main-amd64/)链接中查看。在查询框输入软件包名称就能够列出所有软件包。
+
+使用`apt download`命令可将软件安装包下载到本地。
+
+- 可以指定软件包具体名称
+
+  在软件包网站查询到某个包的具体名称，这样的好处是可以下载与目标配置环境一致的软件包。
+
+```bash
+$ apt download chrony_3.5-6ubuntu6.2_amd64.deb
+```
+
+- 也可以不指定，由系统自行判断并选择下载
+
+  这样会根据当前计算机环境下载相符合的软件包。
+
+```bash
+$ apt download chrony
+```
+
 
 
 ## Nvidia驱动安装

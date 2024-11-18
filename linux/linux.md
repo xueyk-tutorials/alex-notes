@@ -182,6 +182,40 @@ PermitRootLogin yes
 
 
 
+### iperf
+
+#### 示例
+
+**UDP-服务端**
+
+```bash
+$ iperf -u -s
+```
+
+每秒打印一次
+
+```bash
+$ iperf -u -s -i 1
+```
+
+
+
+**UDP-客户端**
+
+- 测试带宽、延时
+
+```bash
+$ iperf -c 192.168.1.180 -u -b 20M
+```
+
+- 记录到文件
+
+```bash
+$ iperf -c 192.168.1.180 -u -b 20M > test.txt
+```
+
+
+
 ## 查看流量
 
 ### 使用ip
