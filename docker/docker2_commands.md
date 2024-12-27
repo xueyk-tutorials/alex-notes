@@ -161,10 +161,9 @@ docker commit -m="drone develop" -a="alex" a404c6c174a2 drone:v1
 
 ### 新建容器并启动
 
-命令：
+命令：docker run [可选参数] image
 
 ```shell
-docker run [可选参数] image
 
 # 参数说明
 --name='name'     #容器名字
@@ -178,15 +177,32 @@ docker run [可选参数] image
     no    默认不重启
     always在容器退出时总是重启容器
 --add-host        # --add-host=gitlab.com=192.168.1.20
+--net             # 默认桥接
 ```
 
+参数说明如下：
 
+- --net：设置网络模式
+  - bridge模式（默认）：--net=bridge。为容器创建独立的网络命名空间，容器具有独立的网卡等所有单独的网络栈，是最常用的使用方式。
+  - host模式：--net=host。和宿主机共用一个Network。
+
+示例：
+
+- 新建容器并进入容器
 
 ```bash
-### 新建容器并进入容器
 alex@alex_laptop:~$ docker run -it tiryoh/ros2 /bin/bash
+```
 
-### 退出容器
+- 新建容器（指定名称、设置host网络模式）
+
+```bash
+docker run --name="cetcs" -it --net=host ubuntu20:04 /bin/bash
+```
+
+- 退出容器
+
+```bash
 ubuntu@4382276945a2:~$ exit
 exit
 alex@alex_laptop:~$ 
@@ -215,8 +231,10 @@ CONTAINER ID   IMAGE         COMMAND                  CREATED         STATUS    
 ### 退出容器
 
 ```shell
-exit       # 容器停车并退出
-ctrl+P+Q   # 容器不停止退出，注意，是先按住ctrl和P再按Q
+# 容器停车并退出，后面可以通过docker start -a [容器ID]启动
+exit       
+# 容器不停止退出，注意，是先按住ctrl和P再按Q
+ctrl+P+Q   
 ```
 
 ### 删除容器
@@ -267,6 +285,85 @@ $ sudo docker exec -it 775c7c9ee1e1 /bin/bash
 ```
 
 
+
+### update
+
+如果容器已经启动，可以通过update更新设置。
+
+```bash
+docker update --restart=always
+```
+
+
+
+## docker build
+
+### 命令解释
+
+`docker build` 命令用于从 Dockerfile 构建 Docker 镜像。
+
+**命令格式为：**`docker build [OPTIONS] PATH | URL | -`
+
+- **`PATH`**: 包含 Dockerfile 的目录路径或 `.`（当前目录）。
+- **`URL`**: 指向包含 Dockerfile 的远程存储库地址（如 Git 仓库）。
+- **`-`**: 从标准输入读取 Dockerfile。
+
+
+
+### 示例
+
+#### 容器创建后执行脚本
+
+在宿主机创建一个`~/docker_build_test`文件夹，并在该文件夹创建Dockerfile文件，内容如下：
+
+```bash
+FROM hub.geekery.cn/ubuntu:20.04
+COPY start_app.sh /home/
+
+CMD ["/bin/bash", "/home/start_app.sh"]
+```
+
+然后在该文件夹下创建start_app.sh文件，内容如下：
+
+```bash
+#!/bin/bash
+LOG_FILE="/home/log.txt"
+touch ${LOG_FILE}
+echo "$(date)">>${LOG_FILE}
+
+cnt=1
+while [ ${cnt} -le 20 ]
+do
+    echo "$(date): ${cnt}">>${LOG_FILE}
+    sleep 1s
+    let cnt++
+done
+```
+
+在宿主机`~/docker_build_test`路径下运行如下命令生成镜像：
+
+```bash
+docker build -t myapp .
+```
+
+创建并启动容器。
+
+
+- 创建并启动方式1
+
+```bash
+docker run -it myapp
+```
+
+当前终端创建并启动容器，由于容器启动后运行start_app.sh脚本并且持续打印20s日志到文件中，故当前终端在此期间被阻塞。
+
+- 创建并启动方式2
+
+```bash
+docker run -d myapp
+```
+
+当前终端创建并启动容器，容器启动后运行start_app.sh脚本并且持续打印20s日志到文件中，由于以后台方式运行故当前终端不会阻塞。
 
 ## 常用其他命令
 
@@ -328,10 +425,15 @@ ubuntu@f0b7c5f703a1:~$ ls
 ros2_setup_scripts_ubuntu  test
 ubuntu@f0b7c5f703a1:~$ exit
 # 执行拷贝，容器是否运行都不重要，只要容器在就可以拷贝
-alex@alex_laptop:~$  cp f0b7c5f703a1:/home/ubuntu/test test
+alex@alex_laptop:~$ docker cp f0b7c5f703a1:/home/ubuntu/test test
 ```
 
+### 挂载数据卷
 
+命令格式：`docker run -it -v 主机目录:容器目录 镜像名 /bin/bash`
+
+- 主机和docker容器下如果没有对应目录则都会被自动创建；
+- 目录一定要用绝对路径；
 
 ### 查看端口映射
 
