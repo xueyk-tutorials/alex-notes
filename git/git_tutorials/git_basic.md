@@ -205,6 +205,18 @@ $ git submodule update --init --recursive
 
 
 
+
+
+### 添加.git文件
+
+如果因为系统重装等原因导致无法识别当前路径下的.git文件夹，可以使用`git config --global --add safe.directory  <文件夹路径>`命令重新添加下。例如：
+
+```bash
+git config --global --add safe.directory E:/A-repository/1-alex_tutorials/alex-notes
+```
+
+
+
 ## GitHub加速
 
 ### 码云
