@@ -132,13 +132,13 @@ network:
    ethernets:
        eth0:
            dhcp4: true
-           optional: true
+           optional: true # 配置为可选，这样不会导致无网络时启动慢
            match:
                macaddress: b8:27:eb:c6:94:8f
            set-name: eth0
    wifis:
        wlan0:
-           dhcp4: true
+           dhcp4: true # 配置为可选，这样不会导致无网络时启动慢
            access-points:
                "wifi的ssid":
                    password: "wifi密码"
@@ -168,6 +168,7 @@ network:
     version: 2
     wifis:
         wls33:                        #网卡名称，根据`ip a`命令查到的来确定
+        	optional: true # 配置为可选，这样不会导致无网络时启动慢
             dhcp4: false
             addresses: [192.168.18.123/24]
             gateway4: 192.168.18.1
@@ -205,6 +206,7 @@ network:
         eth0:
             addresses: [192.168.1.201/24]
             dhcp4: false
+            optional: true  # 配置为可选，这样不会导致无网络时启动慢
             gateway4: 192.168.1.1
             nameservers:
                 addresses: [192.168.1.1]
@@ -212,6 +214,7 @@ network:
     wifis:
         wlan0:
             dhcp4: false
+            optional: true  # 配置为可选，这样不会导致无网络时启动慢
             addresses: [192.168.43.101/24]
             gateway4: 192.168.43.1
             nameservers:
