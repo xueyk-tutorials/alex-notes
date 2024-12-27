@@ -76,6 +76,10 @@ VS Code功能扩展依赖于大量插件。
 
 你可以通过点击远端WSL下载图标，下载对应的插件。
 
+### 插件安装位置
+
+插件默认安装在用户目录下，C:\Users\alex\.vscode\extensions，该文件夹可整体拷贝并至另外的电脑实现迁移。
+
 ### 下载插件
 
 ​		VSCode提供了各插件下载链接。我们以WSL为例说明如何下载：
@@ -105,6 +109,18 @@ Todo tree
 Doxygen Document
 
 ### 相关插件使用
+
+#### gitlens
+
+![gitlens](imgs/gitlens.png)
+
+插件安装完成后，默认集中显示：
+
+![gitlens-2](imgs/gitlens-2.png)
+
+可以选择平铺显示
+
+![gitlens-3](imgs/gitlens-3.png)
 
 #### koroFileheader
 
