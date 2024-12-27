@@ -1,6 +1,12 @@
 # Ubuntu
 
-## 查看版本信息
+## 简介
+
+Ubuntu是Mark Shuttleworth在2004年基于Debian 创建的发行版。
+
+## 常用命令
+
+### 查看版本信息
 
 命令`lsb_release -a`
 
@@ -15,7 +21,7 @@ Codename:   xenial              //ubuntu的代号名称
 
 显示linux的内核版本和系统是多少位的：X86_64代表系统是64位的。
 
-## 查看CPU信息
+### 查看CPU信息
 
 ```bash
 dpkg --print-architecture
@@ -200,6 +206,25 @@ $ apt download chrony_3.5-6ubuntu6.2_amd64.deb
 ```bash
 $ apt download chrony
 ```
+
+
+
+### 基本软件
+
+```bash
+$ apt-get install iputils-ping
+$ sudo apt install net-tools
+$ sudo apt-get install locales
+```
+
+python相关
+
+```bash
+$ sudo apt install python3
+$ sudo apt install python3-pip
+```
+
+
 
 
 
