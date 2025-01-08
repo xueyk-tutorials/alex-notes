@@ -128,7 +128,59 @@ fi
 
 
 
+## 启动容器后自动运行ROS
 
+### 创建Dockerfile
+
+在宿主机创建一个文件夹并在文件夹添加Dockerfile文件，内容如下：
+
+```bash
+FROM drone_dev_ros2:v1
+COPY start_ros2.sh /home/
+RUN echo "/opt/ros/foxy/setup.bash">>~/.bashrc \ 
+    && echo "export ROS_DOMAIN_ID=0">>~/.bashrc
+    
+CMD ["/bin/bash", "/home/start_ros2.sh"]
+```
+
+在该文件夹下创建start_ros2.sh并增加**运行权限**，添加内容如下：
+
+```bash
+#!/bin/bash
+
+source /opt/ros/foxy/setup.bash
+export ROS_DOMAIN_ID=0
+ros2 run demo_nodes_cpp talker
+
+LOG_FILE="/home/log.txt"
+touch ${LOG_FILE}
+echo "$(date)">>${LOG_FILE}
+cnt=1
+while [ ${cnt} -le 3 ]
+do
+    echo "$(date): ${cnt}">>${LOG_FILE}
+    sleep 1s
+    let cnt++
+done
+```
+
+### 构建镜像
+
+在Dockerfile文件所在目录下运行如下命令：
+
+```bash
+docker build -t drone_swarm .
+```
+
+### 创建容器
+
+特别注意，如果希望开机自动启动容器并在容器中自动启动ROS，那么最好通过如下方式创建镜像：
+
+```bash
+docker run -d --net=host drone_swarm
+```
+
+创建容器后，就可以在[开机运行容器](开机运行容器)章节内创建的自定义脚本中更改容器名称即可。
 
 # 开机启动
 
