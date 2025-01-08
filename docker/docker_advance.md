@@ -6,6 +6,9 @@
 
    ```shell
    $ docker commit -m "gitlab runner" -a "alex" <容器ID> gitlab/runner-v1
+   
+   # 添加版本
+   $ docker commit -m "update" -a "alex" <容器ID> drone:v2
    ```
 
 2. 将镜像保存到文件，`docker save`

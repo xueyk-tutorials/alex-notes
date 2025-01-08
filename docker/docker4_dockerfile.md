@@ -91,6 +91,9 @@ WORKDIR /home
 2. 构建镜像
 
 ```shell
+# 如果添加版本标签的话如下，不添加默认是latest
+$ docker build -t drone_swarm:v1 .
+
 $ docker build -t alex:v1.0 -f ./Dockerfile.test .
 ```
 

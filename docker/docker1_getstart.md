@@ -8,7 +8,7 @@ DockerHub: https://hub.docker.com/
 
 ## Docker工作原理
 
-Docker是一个Server-Client结构的系统，Docker的守护进程运行在主机上，通过socket从客户端访问。DockerServer接收到DockerClient的指令，就会执行这个命令。
+Docker是一个Server-Client结构的系统，启动docker服务端后才能够正常使用docker，服务端会启动docker daemon守护进程。Docker的守护进程运行在主机上，通过socket从客户端访问。DockerServer接收到DockerClient的指令，就会执行这个命令。
 
 ## Docker安装
 
@@ -229,7 +229,28 @@ For more examples and ideas, visit:
  https://docs.docker.com/get-started/
 ```
 
+### 开机启动
 
+#### WSL2开机启动docker
+
+新建`/etc/init.wsl`文件命令行输入
+
+```shell
+sudo vim /etc/init.wsl
+```
+
+在该文件下添加如下内容
+
+```shell
+#! /bin/sh
+service docker start
+```
+
+赋予文件可执行权限
+
+```shell
+sudo chmod a+x /etc/init.wsl
+```
 
 ## docker使用
 
@@ -250,9 +271,7 @@ docker images    #查看当前镜像
 数据卷和持久化数据将保存在 /var/lib/docker/volumes 目录下。
 Docker 的运行时信息和日志可以在 /var/log/docker 目录下找到。
 
-## docker原理
 
-docker是client-server运行架构，启动docker服务端后才能够正常使用docker，服务端会启动docker daemon守护进程。
 
 ## 典型dockers镜像
 
@@ -273,6 +292,9 @@ docker pull ubuntu:20.04
 $ docker pull hub.geekery.cn/hello-world
 $ docker pull hub.geekery.cn/ubuntu:20.04
 $ docker search hub.geekery.cn/ros2:foxy
+
+
+$ docker search docker.m.daocloud.io/library/ros2:foxy
 ```
 
 
