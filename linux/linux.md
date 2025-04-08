@@ -329,3 +329,13 @@ $ tar -cvf 生成的打包文件名.tar 待打包的文件
 $ tar -xvf 要解压的压缩包.tar
 ```
 
+
+
+# 常用指令
+
+## 递归删除特定后缀文件
+
+```bash
+find  -name "*.txt" | xargs rm -f
+```
+

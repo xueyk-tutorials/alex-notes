@@ -123,9 +123,15 @@ wsl --install Ubuntu-20.04 --web-download
 
 
 
-> 安装的默认位置是：
->
-> C:\Users\alex\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\ext4.vhdx
+#### 默认安装位置
+
+##### WSL默认安装位置
+
+C:\Program Files\WSL
+
+##### 分发版默认安装位置
+
+C:\Users\alex\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\ext4.vhdx
 
 ### 安装Windows终端
 
@@ -408,6 +414,24 @@ $ netsh interface portproxy add v4tov4 listenport=14550 listenaddress=0.0.0.0 co
 ```
 
 > 在18945之后的版本中, 微软改进了WSL2, 使我们可以使用localhost, 访问WSL的网络服务
+
+## USB
+
+允许它附加到 WSL2。运行命令后，再次使用命令 usbipd list 验证设备是否已共享。（后面的设备状态变成 *Shared*）
+
+```shell
+usbipd bind -b 2-1
+```
+
+
+
+
+
+usbipd attach --wsl -b 2-1
+
+usbipd detach  -b 2-1
+
+
 
 ## 开机启动
 
