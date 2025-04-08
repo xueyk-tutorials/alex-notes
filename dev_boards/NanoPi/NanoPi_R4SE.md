@@ -107,6 +107,18 @@ Linux FriendlyWrt 6.1.63 #1 SMP Fri Dec 22 16:33:59 CST 2023 aarch64 GNU/Linux
 
 ![image-20241225170220685](imgs/image-20241225170220685.png)
 
+# friendlyWrt使用
+
+## 网络配置
+
+### LAN接口IP配置
+
+进入网页后，点击网络->接口，然后点击LAN网桥配置按钮，可以设置IP。
+
+相当于修改如下配置文件。
+
+![image-20250320134951622](imgs/image-20250320134951622.png)
+
 # 安装系统
 
 ## 通过TF卡运行系统
