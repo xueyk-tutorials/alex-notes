@@ -284,6 +284,112 @@ $ git config --global core.autocrlf true
 
 unix2dos与dos2unix是一对互转的命令，用于将CRLF与LF进行互转。
 
+## 子模块（gitmodules）
+
+### 添加子模块
+
+在项目工程中添加子模块。
+
+```bash
+# 进入主项目目录
+cd your-main-project
+
+# 添加子仓库（替换为你的子仓库URL和路径）
+git submodule add https://github.com/user/subrepo.git path/to/submodule
+```
+
+执行完`git submodule add`命令后，会自动拉取子仓库并且创建.gitmodules文件。
+
+### 拉取子模块更新
+
+如果其他人更新了子模块，你需要同步子模块的更改：
+
+```bash
+git submodule update --remote --merge
+```
+
+### 在主仓库中修改子模块代码
+
+在 Git 中，如果你在主仓库中添加了一个子仓库（通常是通过 Git 子模块 `submodule` 实现的），修改子仓库代码后，需要分别将子仓库的更改推送到其对应的远端仓库，并同步主仓库中的子模块引用。以下是具体步骤：
+
+---
+
+#### 1. **进入子仓库目录**
+   首先，进入主仓库中的子仓库目录：
+   ```bash
+   cd path/to/submodule
+   ```
+
+---
+
+#### 2. **查看子仓库的状态**
+   检查子仓库是否有修改：
+   ```bash
+   git status
+   ```
+   如果有修改，会显示未提交的更改。
+
+---
+
+#### 3. **提交子仓库的更改**
+   将子仓库的修改提交到其本地仓库：
+   ```bash
+   git add .
+   git commit -m "Your commit message for submodule changes"
+   ```
+
+---
+
+#### 4. **推送子仓库的更改到远端**
+   将子仓库的提交推送到其对应的远端仓库：
+   ```bash
+   git push origin branch-name
+   ```
+   其中 `branch-name` 是子仓库的分支名称（通常是 `main` 或 `master`）。
+
+---
+
+#### 5. **返回主仓库目录**
+   完成子仓库的推送后，返回主仓库的根目录：
+   ```bash
+   cd ../..
+   ```
+
+---
+
+#### 6. **更新主仓库中的子模块引用**
+   子仓库的更改推送后，主仓库中记录的子模块引用（即子仓库的 commit hash）需要更新：
+   ```bash
+   git add path/to/submodule
+   git commit -m "Update submodule to latest version"
+   ```
+
+---
+
+#### 7. **推送主仓库的更改**
+   将主仓库的更改推送到其远端仓库：
+   ```bash
+   git push origin main
+   ```
+
+---
+
+#### 8. **其他注意事项**
+   - **拉取子模块更新**：如果其他人更新了子模块，你需要同步子模块的更改：
+     ```bash
+     git submodule update --remote --merge
+     ```
+   - **初始化子模块**：如果克隆了主仓库但子模块未初始化，可以运行：
+     
+     ```bash
+     git submodule init
+     git submodule update
+     ```
+
+---
+
+通过以上步骤，你可以确保子仓库的修改同步到其远端仓库，同时更新主仓库中的子模块引用。
+
 ## 忽略仓库中已经添加过的文件
 
 直接在.gitignore中增加忽略项无法忽略已经添加进仓库中的文件，如果需要将仓库中已经存在的文件加入忽略，则首先需要清除对相关文件的跟踪。
@@ -891,6 +997,8 @@ $ git commit -m "将文件添加至ignore"
 > 注意:
 >
 > 1. 一定要加--cached参数，否则会从硬盘上删除工程文件
+
+
 
 ## 问题与解决
 
