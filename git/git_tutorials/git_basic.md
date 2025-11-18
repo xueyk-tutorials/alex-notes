@@ -420,7 +420,7 @@ git init –bare
    	进入开发项目中，添加共享目录下的远端仓库并取名为local，然后将项目代码推送到local。
 
 ```bash
-git remote add origin D:/alex_shared/cetcs-swarm.git
+git remote add local D:/alex_shared/cetcs-swarm.git
 git push -u local master
 ```
 
