@@ -29,6 +29,8 @@ https://learn.microsoft.com/zh-cn/windows/wsl/wsl-config
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 ```
 
+![image-20251113091631041](D:\00-repository\1-alex_tutorials\1-alex-notes\linux\WSL2\imgs\WSL2笔记\image-20251113091631041.png)
+
 #### 步骤 2 - 检查运行 WSL 2 的要求
 
 如果是 Windows 11系统则默认支持WSL2。
@@ -46,13 +48,13 @@ dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux 
 dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
 ```
 
+![image-20251113091831340](imgs\WSL2笔记\image-20251113091831340.png)
+
 重启计算机。
 
 #### 步骤 4 - 下载 Linux 内核更新包
 
-下载最新包：
-
-- [适用于 x64 计算机的 WSL2 Linux 内核更新包](https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi)
+- 下载最新包wsl_update_x64.msi：[适用于 x64 计算机的 WSL2 Linux 内核更新包](https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi)
 - 运行上一步中下载的更新包。 （双击以运行 - 系统将提示你提供提升的权限，选择“是”以批准此安装。）
 
 #### 步骤 5 - 将 WSL 2 设置为默认版本
@@ -60,6 +62,14 @@ dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /nores
 ```shell
 wsl --set-default-version 2
 ```
+
+注意：若提示Windows子系统必须更新到最新版本才能继续，则运行如下命令：
+
+```shell
+wsl.exe --update
+```
+
+![image-20251113093542365](imgs\WSL2笔记\image-20251113093542365.png)
 
 #### 步骤 6 - 安装所选的 Linux 分发
 
@@ -121,7 +131,9 @@ wsl --list --online
 wsl --install Ubuntu-20.04 --web-download
 ```
 
+##### 通过本地分发版文件
 
+如果本地有分发版文件，可以直接通过wsl命令导入并安装。具体可见后面分发版迁移章节。
 
 #### 默认安装位置
 
@@ -139,7 +151,11 @@ Windows终端用于管理所有的终端如cmd、Windows PowerShell、WSL，交�
 
 ![image-20240815224741097](imgs/image-20240815224741097.png)
 
-请参考官网教程：https://docs.microsoft.com/zh-CN/windows/terminal/install
+可在Microsoft Store中安装。
+
+请参考官网使用教程：https://docs.microsoft.com/zh-CN/windows/terminal/install。
+
+
 
 ### Win11下应用界面 配置
 如果是在win11系统下安装wsl2，则可以直接打开Linux下的桌面应用并在Windows下显示。
