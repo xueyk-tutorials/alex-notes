@@ -42,6 +42,18 @@
 
 ## conda安装
 
+### Windows下安装
+
+双击安装包安装即可。
+
+默认安装路径：
+
+```bash
+C:\ProgramData\anaconda3
+```
+
+
+
 ### Ubuntu下安装anaconda
 
 #### 下载
@@ -209,11 +221,30 @@ conda install xxx.tar.bz2
 
 ## 不同计算机迁移环境
 
-如果在计算机A上创建了`my_env`环境，现在希望将它迁移至计算机B。
+### Windows
+
+#### 目的
+
+两个计算机A、B都已经安装了anaconda，如果在计算机A上创建了`my_env`环境，现在希望将它迁移至计算机B。
+
+#### 原理
+
+在anaconda创建的环境默认放置的路径为：`C:\Users\用户名\.conda\envs`，例如创建的`my_env`环境路径为：`C:\Users\用户名\.conda\envs\my_env`。
+
+新创建环境后，会将该路径添加至`C:\Users\用户名\.conda\environment.txt`文件。
+
+#### 步骤
+
+1. 将`my_env`环境所在文件夹`C:\Users\用户名\.conda\envs\my_env`直接从计算机A拷贝至计算机B；
+2. 在计算机B，编辑`C:\Users\用户名\.conda\environment.txt`文件，添加新拷贝过来的`my_env`环境路径即可。
+
+### Linux
+
+#### 步骤
 
 1. 拷贝`my_env`
 
-   可以在计算机A的conda环境默认安装路径下（/home/allex/miniconda3/envs），找到my_env环境文件夹。并拷贝至计算机B，例如存放在/home/my_env。
+   可以在计算机A的conda环境安装路径下（/home/allex/miniconda3/envs），找到my_env环境文件夹。并拷贝至计算机B，例如存放在/home/my_env。
 
 2. 拷贝计算机A的pkgs目录（/home/allex/miniconda3/pkgs），替换计算机B的pkgs目录。
 
@@ -227,7 +258,72 @@ conda install xxx.tar.bz2
    $ conda create -n 新建虚拟环境名字 --clone 拷贝过来的环境所在目录如/home/my_env --offline
    ```
 
-   
+
+## 在指定环境下启动juypter notebook
+
+### 安装jupyter
+
+激活指定环境后，安装：
+
+```bash
+# 方法1：使用conda安装
+conda install jupyter
+
+# 方法2：使用pip安装
+pip install jupyter
+```
+
+### 启动
+
+```bash
+jupyter notebook
+```
+
+
+
+## 创建软链接
+
+当在Windows安装Anaconda后，在Anaconda环境下只能使用`python`而不能使用`python3`。
+
+### 原因
+
+其原因为：
+
+- 在Windows上，Anaconda默认只创建`python.exe`，不创建`python3.exe`
+- 在Linux/Mac系统上，Anaconda通常会同时创建`python`和`python3`两个命令
+
+- Anaconda的安装路径中只有`python.exe`，没有`python3.exe`
+- 在Windows上，Anaconda没有自动创建`python3`的符号链接
+
+
+
+### 解决方法
+
+以管理员身份打开命令提示符，找到Anaconda安装目录下的python.exe。
+
+如果是base环境，对应的安装目录为`C:\ProgramData\anaconda3`，可进入该目录创建链接：
+
+```bash
+$ cd C:\ProgramData\anaconda3
+$ mklink python3.exe python.exe
+```
+
+如果是其他创建的环境，对应的安装目录一般为`C:\Users\93114\.conda\envs\环境名称`
+
+```bash
+$ C:\Users\93114\.conda\envs\环境名称
+$ mklink python3.exe python.exe
+```
+
+### 确认
+
+进入conda环境后，输入如下命令查看版本：
+
+```bash
+$ python3 --version
+```
+
+
 
 ## 镜像源
 
