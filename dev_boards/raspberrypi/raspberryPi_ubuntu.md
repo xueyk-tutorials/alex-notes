@@ -228,7 +228,9 @@ network:
     version: 2
 ```
 
+**3.Ubuntu20.04**
 
+同Ubuntu18.04
 
 #### 开机自启动
 
@@ -244,7 +246,9 @@ $ sudo systemctl enable ssh
 
 
 
-### 串口配置
+### 串口
+
+#### 配置
 
 - 查看串口驱动
 
@@ -301,6 +305,16 @@ UART5： GPIO12 = TXD5 -> ttyAMA4     GPIO13 = RXD5 -> ttyAMA4
 ```
 
 ![](imgs/40pins-2.png)
+
+#### 串口登陆
+
+启用串口之后，UART0默认为控制台串口。
+
+- 硬件连接
+
+  使用USB转TTL，根据下图进行连接。波特率115200。
+
+![](imgs/serial_access_connect.png)
 
 ## 命令总结
 
