@@ -63,6 +63,8 @@ git push --force-with-lease origin master
 
 ```bash
 git branch --set-upstream-to=origin/feature-branch
+# 或者
+git branch -u origin/feature-branch feature-branch
 ```
 
 - 在创建分支时指定跟踪关系
